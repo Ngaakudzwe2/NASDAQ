@@ -1,0 +1,38 @@
+# ---- Data -------------------------------------------------------------
+data:
+  csv_path: data/NAS100_M5.csv   # your M5 export (see data/README.md)
+  csv_timezone: UTC              # time zone of the timestamps in the CSV
+                                 # e.g. UTC, Europe/Berlin, Etc/GMT-2 (MT5 brokers are often GMT+2/+3)
+  start: null                    # e.g. "2019-01-01" (null = all data)
+  end: null
+
+# ---- Strategy ---------------------------------------------------------
+strategy:
+  entry_rule: symmetric          # symmetric (v2 fix) | original (asymmetric short rule, for comparison)
+  ema_period: 12
+  atr_period: 14
+  open_time: "09:30"             # New York time
+  session_close: "16:00"         # New York time, used when hold_overnight is false
+  min_body_atr: 0.0              # skip signal candles with body < X * ATR (0 = off)
+  skip_weekdays: []              # 0=Mon ... 4=Fri, e.g. [4] skips Fridays
+
+  stop_mode: atr                 # atr | candle
+  stop_atr_mult: 1.5
+  candle_stop_buffer: 1.0        # points beyond signal candle high/low (candle mode)
+  trail_atr_mult: 2.5
+  breakeven_at_r: 0.0            # move stop to entry at +X R (0 = off)
+  hold_overnight: true           # true = original rules; false = flat at session_close
+
+# ---- Risk & costs -----------------------------------------------------
+risk:
+  initial_equity: 10000
+  risk_pct: 0.5                  # % of equity risked per trade
+  max_leverage: 20               # cap on position value / equity
+  spread_points: 1.5             # round-trip spread (half charged each side)
+  entry_slippage_points: 1.0
+  stop_slippage_points: 1.0
+  swap_pct_per_year: 7.0         # CFD overnight financing, % of position value per year
+
+# ---- Output -----------------------------------------------------------
+output:
+  dir: results

@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backtest (config.yaml)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Backtest: compare variants",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "args": ["--compare"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Backtest: sample data",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "args": ["--csv", "data/sample_M5.csv", "--tz", "UTC", "--compare"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Backtest: in/out-of-sample split",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "args": ["--split", "2023-01-01"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ]
+}
