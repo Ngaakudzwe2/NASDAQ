@@ -43,7 +43,7 @@ A chandelier trail, updated **only after each M5 bar closes**. That way there's 
 - Long: trail = highest high since entry − `trail_atr_mult` × ATR(14). Default is 2.5.
 - Short: trail = lowest low since entry + `trail_atr_mult` × ATR(14).
 - The stop **only moves in the trade's favour**. It never loosens.
-- Optional **[param] `breakeven_at_r`**: once open profit reaches X R, move the stop to entry.
+- Optional **[param] `breakeven_at_r`**: once a bar **closes** at ≥ X R open profit, move the stop to entry. An intrabar touch doesn't count.
 
 ## 5. Exit
 
@@ -60,7 +60,8 @@ If a trade is still open at 09:30, **ignore today's signal**. Positions never st
 ## 7. Position sizing (FIX #4)
 
 - Risk **[param] `risk_pct`** of account equity per trade. Default 0.5%.
-- Size = (equity × risk_pct) / (entry − initial stop distance).
+- Size = (equity × risk_pct) / |entry − initial stop|.
+- Position value is capped at **[param] `max_leverage`** × equity (default 20). When the stop is tight, the cap can make the real risk smaller than `risk_pct`.
 - **Maximum 1 open position.** No pyramiding.
 
 ## 8. Costs, all included in the backtest (FIX #5)
